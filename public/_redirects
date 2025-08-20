@@ -1,0 +1,4 @@
+/dashboard/*    /index.html   200
+/dashboard    /   301
+/users    /   301
+/users/*   /index.html   200

@@ -1,0 +1,373 @@
+@use "./variables.scss" as *;
+
+@mixin center-flex-horizontal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin center-flex-vertical {
+  @include center-flex-horizontal();
+  flex-direction: column;
+}
+
+@mixin spinning-loader {
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin button-styles {
+  width: 100%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  font-weight: 700;
+  line-height: 17px;
+  font-size: 14px;
+  opacity: 0.9;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Prevent text selection on button
+  user-select: none;
+
+  // Ensure proper rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Active/Click state
+  &:active {
+    transform: scale(0.99);
+  }
+
+  // // Focus state for accessibility
+  // &:focus-visible {
+  //   outline: 2px solid currentColor;
+  //   outline-offset: 2px;
+  // }
+
+  // Disabled state
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@mixin text-input-styles(
+  $green-color: $green-color,
+  $border-color: #e5e7eb,
+  $bg-color: #ffffff,
+  $placeholder-color: #bbb
+) {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: $bg-color;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: $blue-border-color;
+  }
+
+  &:focus {
+    border: 1px solid $blue-color;
+  }
+
+  &::placeholder {
+    color: $placeholder-color;
+    font-family: "inter";
+    font-weight: 200;
+    font-size: 16px;
+  }
+
+  &:disabled {
+    background-color: #fff;
+    border-color: #eee;
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: #ccc;
+      opacity: 0.8;
+      font-weight: 200;
+    }
+  }
+}
+
+@mixin overview-box {
+  background-color: $offwhite-color;
+  padding: 15px 25px 15px 25px;
+  border-radius: 20px;
+}
+
+@mixin overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    @include button-styles;
+    width: auto;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    column-gap: 10px;
+    color: $orange-color;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+
+    span {
+      margin-top: 5px;
+    }
+  }
+}
+
+@mixin overview-body {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping to the next line */
+}
+
+@mixin overview-content-box {
+  background-color: white;
+  border-radius: 20px;
+  padding: 25px;
+  padding-right: 0;
+  width: calc(50% - 12px);
+  height: 374px;
+  margin-bottom: 24px; /* Default margin-bottom for all boxes */
+  box-shadow: $primary-box-shadow;
+  overflow-y: hidden;
+
+  /* Apply margin-right only to odd-numbered boxes */
+  &:nth-child(odd) {
+    margin-right: 24px;
+  }
+
+  /* Remove margin-bottom from the last two items */
+  &:nth-last-child(2),
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+
+  div:first-child {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: $black-color;
+  }
+}
+
+@mixin overview-content {
+  margin-top: 10px;
+  height: 90%;
+  overflow-y: auto;
+  padding-right: 60px;
+  div {
+    margin-top: 15px;
+    display: flex;
+    align-items: flex-start;
+    column-gap: 15px;
+    justify-content: flex-start;
+  }
+
+  div:last-child {
+    padding-bottom: 80px;
+  }
+
+  p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: $black-color;
+    opacity: 0.8;
+    line-height: 1.2;
+  }
+}
+
+@mixin table-container {
+  background-color: white;
+  margin: 30px 0 15px 0;
+  padding: 25px 0px 25px 0px;
+  border-radius: 20px;
+  box-shadow: $primary-box-shadow;
+  overflow-x: hidden;
+}
+
+@mixin table-styles {
+  margin: 0;
+  margin-top: 20px;
+  border-spacing: 0;
+  border-collapse: separate;
+  overflow-y: scroll;
+
+  th {
+    font-style: normal;
+    font-weight: 600;
+    text-wrap: nowrap;
+    padding: 12px 25px;
+  }
+
+  td {
+    padding: 0 25px;
+  }
+
+  tbody {
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    vertical-align: top;
+    tr {
+      td {
+        padding-top: 15px;
+      }
+    }
+  }
+
+  tfoot td {
+    font-style: normal;
+    font-weight: 600;
+    text-wrap: nowrap;
+    padding: 12px 25px;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: left;
+  }
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Responsive Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (min-width: 640px) {
+      @content;
+    }
+  } @else if $breakpoint == "md" {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == "lg" {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $breakpoint == "xl" {
+    @media (min-width: 1280px) {
+      @content;
+    }
+  } @else if $breakpoint == "2xl" {
+    @media (min-width: 1536px) {
+      @content;
+    }
+  }
+}
+
+// Typography Mixins
+@mixin heading-1 {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: 1.2;
+}
+
+@mixin heading-2 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: 1.25;
+}
+
+@mixin body-text {
+  font-size: $font-size-base;
+  line-height: 1.5;
+}
+
+@mixin small-text {
+  font-size: $font-size-sm;
+  line-height: 1.5;
+}
+
+// Button Mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $color-blue-600;
+  color: white;
+
+  &:hover {
+    background-color: $color-blue-700;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $color-gray-200;
+  color: $color-gray-800;
+
+  &:hover {
+    background-color: $color-gray-300;
+  }
+}
+
+// Card Mixins
+@mixin card {
+  border-radius: $border-radius-lg;
+  background-color: white;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}

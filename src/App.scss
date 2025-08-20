@@ -1,0 +1,103 @@
+@use "./styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  // scrollbar-width: thin;
+  // scrollbar-color: #888 #f1f1f1;
+}
+
+/* For Webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  display: block; /* Ensures scrollbar is displayed */
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+  display: block; /* Ensures track is displayed */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+// App styles
+.app {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #fbfbfb;
+}
+
+//overlays styles
+
+#overlays {
+  // modal  base styles
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease-in-out; // make sure the transition time is same as setTimeout time where it is being used to open and close the modal
+
+    &.active {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background-color: #fff;
+    // padding: 15px;
+    z-index: 1000;
+    width: auto;
+    height: auto;
+    min-width: 200px;
+    max-width: 90vw;
+    max-height: 90vh;
+    // overflow-y: auto;
+    border-radius: 20px;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // make sure the transition time is same as setTimeout time where it is being used to open and close the modal
+
+    &.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+// Width Breakpoints
+@custom-media --sm-device-width (min-width: 768px) and (max-width: 1023px);
+@custom-media --md-device-width (min-width: 1024px) and (max-width: 1439px);
+@custom-media --lg-device-width (min-width: 1440px);
+
+// Height Breakpoints
+@custom-media --sm-device-height (min-height: 600px) and (max-height: 767px);
+@custom-media --md-device-height (min-height: 768px) and (max-height: 1079px);
+@custom-media --lg-device-height (min-height: 1080px);

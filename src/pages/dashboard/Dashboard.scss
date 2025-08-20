@@ -1,0 +1,471 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+@mixin parent-box {
+  height: 90vh;
+  padding: 20px 15px;
+  margin-top: 10px;
+}
+
+@mixin child-box {
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: $primary-box-shadow;
+  border-radius: 20px;
+  padding: 25px 20px;
+}
+
+.main-content-dashboard {
+  @include parent-box;
+  width: 100%;
+
+  .main-content-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    @include child-box;
+    height: 100%;
+    width: 95%;
+
+    .main-content-header {
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 20px;
+      margin-top: 10px;
+
+      .add-user-btn {
+        @include button-styles;
+        width: 180px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: $light-blue-color;
+        color: $blue-color;
+        border: 1px solid $blue-border-color;
+
+        &:hover {
+          background-color: $hover-blue-color;
+        }
+      }
+
+      input {
+        @include text-input-styles;
+        width: 350px;
+        padding: 10px;
+        font-size: 12px;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .main-content-table {
+      margin-top: 30px;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+
+      table {
+        height: 90%;
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: separate;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #eee;
+
+        thead,
+        tbody tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+
+        tbody {
+          color: #1a202c;
+          opacity: 0.8;
+          display: block;
+          height: inherit;
+          overflow: scroll;
+
+          .loading-state,
+          .empty-state {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+          }
+        }
+
+        thead tr {
+          background-color: $blue-color;
+          opacity: 0.9;
+          color: #ffffff;
+          text-align: left;
+          border-radius: 10px;
+
+          th {
+            font-weight: 400;
+          }
+        }
+
+        th,
+        td {
+          padding: 16px;
+          font-size: 16px;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+          width: 6%;
+          padding-left: 20px;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+          width: 18%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5) {
+          width: 14%;
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+          width: 13%;
+          text-align: right;
+        }
+
+        tbody tr td {
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr:last-child td {
+          border-bottom: none; /* Remove border from last row */
+        }
+
+        // th:nth-child(1),
+        // td:nth-child(1) {
+        //   width: 250px;
+        // }
+
+        // th:nth-child(2),
+        // td:nth-child(2) {
+        //   width: 150px;
+        // }
+
+        // th:nth-child(3),
+        // td:nth-child(3) {
+        //   width: 200px;
+        // }
+
+        // th:nth-child(4),
+        // td:nth-child(4) {
+        //   width: 150px;
+        // }
+
+        .verification-btn {
+          @include button-styles;
+          padding: 10px;
+          border-radius: 8px;
+          background-color: $light-blue-color;
+          color: $blue-color;
+          border: 1px solid $blue-border-color;
+          width: 180px;
+
+          &:hover {
+            background-color: $hover-blue-color;
+          }
+        }
+
+        .extract-btn {
+          @include button-styles;
+          padding: 8px 12px;
+          width: 150px;
+          border-radius: 8px;
+          background-color: $color-blue-50;
+          color: $color-blue-700;
+          border: 1px solid $color-blue-200;
+          font-size: 14px;
+          white-space: nowrap;
+
+          &:hover {
+            background-color: $light-blue-color;
+            color: $blue-color;
+            border-color: $blue-border-color;
+          }
+        }
+
+        .file-name-cell {
+          max-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .status-pill {
+          display: flex; 
+          justify-content: center;
+          align-items: center;
+          width: 130px;
+          padding: 8px 20px;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1;
+          border: 1px solid transparent;
+          background-color: $color-gray-100;
+          color: $color-gray-700;
+
+          &.is-null {
+            background-color: $color-gray-100;
+            color: $color-gray-600;
+            border-color: $color-gray-200;
+          }
+
+          &.is-pending {
+            background-color: $color-orange-50;
+            color: $color-orange-600;
+            border-color: #fed7aa;
+          }
+
+          &.is-in-progress {
+            background-color: $color-blue-50;
+            color: $color-blue-700;
+            border-color: $color-blue-200;
+          }
+
+          &.is-completed {
+            background-color: $color-green-50;
+            color: $color-green-600;
+            border-color: #86efac;
+          }
+
+          &.is-failed {
+            background-color: $color-red-50;
+            color: $color-red-600;
+            border-color: #ffa8a8;
+          }
+
+          &.is-na {
+            background-color: #f3f4f6;
+            color: #6b7280;
+            border-color: #e5e7eb;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-borrower-modal-content {
+  height: fit-content;
+  width: 458px;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+
+    .text-input {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        color: $font-black-color;
+        line-height: 17px;
+      }
+
+      input,
+      select {
+        @include text-input-styles;
+        padding: 6px 12px;
+        height: 40px;
+        font-size: 14px;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-color: #fff;
+
+        &:focus {
+          border-color: $blue-color;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba($blue-color, 0.2);
+        }
+
+        &.error {
+          border-color: #e53e3e;
+
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(#e53e3e, 0.2);
+          }
+        }
+      }
+
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M10.3%203.3L6%207.6%201.7%203.3c-.4-.4-1-.4-1.4%200s-.4%201%200%201.4l5%205c.2.2.4.3.7.3s.5-.1.7-.3l5-5c.4-.4.4-1%200-1.4s-1-.4-1.4%200z%22%2F%3E%3C%2Fsvg%3E");
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 0.65rem;
+        padding-right: 2.5rem;
+
+        &:disabled {
+          background-color: #f5f5f5;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+
+      .error-message {
+        color: #e53e3e;
+        font-size: 12px;
+        margin-top: -4px;
+      }
+    }
+
+    .checklist-section {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+
+      h3 {
+        font-size: 14px;
+        font-weight: 500;
+        color: $font-black-color;
+        margin: 0;
+        line-height: 17px;
+      }
+
+      .checklist {
+        max-height: 120px;
+        overflow-y: auto;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 10px;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #c1c1c1;
+          border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #a1a1a1;
+        }
+
+        .checklist-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          font-size: 13px;
+          color: $font-black-color;
+          padding: 4px 0;
+
+          input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            accent-color: $blue-color;
+            cursor: pointer;
+          }
+
+          span {
+            flex: 1;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+    .buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
+      margin-top: 5px;
+
+      button {
+        @include button-styles;
+        width: 100%;
+        height: 38px;
+        font-size: 13px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
+        position: relative;
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+
+        &.loading {
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            animation: spin 0.8s linear infinite;
+          }
+        }
+      }
+
+      button:first-child {
+        background-color: $light-blue-color;
+        color: $blue-color;
+        border: 1px solid $blue-border-color;
+
+        &:hover:not(:disabled) {
+          background-color: $hover-blue-color;
+        }
+      }
+
+      button:last-child {
+        background-color: #fff;
+        border: 1px solid $border-color;
+        color: $font-black-color;
+        opacity: 0.8;
+
+        &:hover:not(:disabled) {
+          background-color: #e5e5e5;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

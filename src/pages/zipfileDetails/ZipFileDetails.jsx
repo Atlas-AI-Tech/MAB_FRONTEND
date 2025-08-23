@@ -119,12 +119,12 @@ const ZipFileDetails = () => {
                 </div>
               </div>
 
-              <div className='doc-card-body'>
+              {/* <div className='doc-card-body'> */}
                 {/* <div className='field'>
                   <span className='field-label'>Application ID</span>
                   <span className='field-value mono'>{item.applicationId}</span>
                 </div> */}
-                <div className='field'>
+                {/* <div className='field'>
                   <span className='field-label'>Document Type</span>
                   <span className='field-value'>{formatDocType(item.documentType)}</span>
                 </div>
@@ -134,7 +134,8 @@ const ZipFileDetails = () => {
                     {item.extractionStatus.replace(/_/g, " ")}
                   </span>
                 </div>
-              </div>
+              </div> */}
+              
             </div>
           ))}
         </div>

@@ -210,52 +210,35 @@
 
         .status-pill {
           display: flex; 
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
-          width: 130px;
-          padding: 8px 20px;
-          border-radius: 10px;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 500;
-          line-height: 1;
-          border: 1px solid transparent;
-          background-color: $color-gray-100;
           color: $color-gray-700;
+          padding-left: 20px;
 
           &.is-null {
-            background-color: $color-gray-100;
             color: $color-gray-600;
-            border-color: $color-gray-200;
           }
 
           &.is-pending {
-            background-color: $color-orange-50;
             color: $color-orange-600;
-            border-color: #fed7aa;
           }
 
           &.is-in-progress {
-            background-color: $color-blue-50;
             color: $color-blue-700;
-            border-color: $color-blue-200;
           }
 
           &.is-completed {
-            background-color: $color-green-50;
             color: $color-green-600;
-            border-color: #86efac;
           }
 
           &.is-failed {
-            background-color: $color-red-50;
             color: $color-red-600;
-            border-color: #ffa8a8;
           }
 
           &.is-na {
-            background-color: #f3f4f6;
             color: #6b7280;
-            border-color: #e5e7eb;
           }
         }
       }

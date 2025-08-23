@@ -1,4 +1,6 @@
 /dashboard/*    /index.html   200
 /dashboard    /   301
-/users    /   301
-/users/*   /index.html   200
+/upload    /   301
+/upload/*   /index.html   200
+/zip    /   301
+/zip/*   /index.html   200

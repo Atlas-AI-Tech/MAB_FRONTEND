@@ -498,6 +498,10 @@ const Dashboard = () => {
         return "In Progress";
       case "NOT_APPLICABLE":
         return "N/A";
+      case "COMPLETED":
+        return "SUCCESS"
+      case "UPLOADED": 
+      return "SUCCESS"
       default:
         return status?.charAt(0) + status?.slice(1).toLowerCase();
     }
@@ -543,11 +547,11 @@ const Dashboard = () => {
             <thead>
               <tr>
                 <th>Sr. No</th>
-                <th>File Name</th>
-                <th>Upload Status</th>
-                <th>Extraction Status</th>
+                <th>Zip File Name</th>
+                <th>Zip Upload Status</th>
+                <th>Zip Extraction Status</th>
                 <th>Spreadsheet Status</th>
-                <th style={{textAlign:"center"}}>File Details</th>
+                <th style={{textAlign:"center"}}>Zip File Details</th>
               </tr>
             </thead>
             <tbody>

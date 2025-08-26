@@ -14,6 +14,7 @@ const Upload = () => {
   const [results, setResults] = useState([]);
   const [isDragActive, setIsDragActive] = useState(false);
 
+
   const totalFiles = queuedFiles?.length || 0;
   const isAllSuccessful = useMemo(
     () => totalFiles > 0 && results.length === totalFiles && results.every((r) => r.status === "fulfilled"),
@@ -25,6 +26,9 @@ const Upload = () => {
     setIsUploading(false);
     setCurrentIndex(0);
     setResults([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }, []);
 
   const validateZipFiles = (filesList) => {
@@ -44,6 +48,15 @@ const Upload = () => {
     return valid;
   };
 
+  const enforceMaxFiles = (files) => {
+    if (!Array.isArray(files)) return [];
+    if (files.length > 5) {
+      toast.error("A maximum of 5 files can be uploaded at once");
+      return [];
+    }
+    return files;
+  };
+
   const handleChooseFiles = useCallback(() => {
     if (isUploading) return;
     fileInputRef.current?.click();
@@ -51,11 +64,15 @@ const Upload = () => {
 
   const handleFilesSelected = async (e) => {
     if (isUploading) return;
-    const files = validateZipFiles(e.target.files);
+    const files = enforceMaxFiles(validateZipFiles(e.target.files));
     if (!files.length) return;
     setQueuedFiles(files);
     setResults([]);
     setCurrentIndex(0);
+    // Reset input so selecting the same files again triggers onChange
+    if (e?.target) {
+      e.target.value = "";
+    }
   };
 
   const handleDrop = (e) => {
@@ -64,7 +81,7 @@ const Upload = () => {
     setIsDragActive(false);
     if (isUploading) return;
     const dt = e.dataTransfer;
-    const files = validateZipFiles(dt?.files);
+    const files = enforceMaxFiles(validateZipFiles(dt?.files));
     if (!files.length) return;
     setQueuedFiles(files);
     setResults([]);
@@ -103,6 +120,7 @@ const Upload = () => {
             status: "rejected",
             error: error?.response?.data ?? error?.message ?? error,
           };
+          toast.error(error?.response?.data?.error || "Failed to upload file")
           localResults.push(errorItem);
           setResults((prev) => [...prev, errorItem]);
         }
